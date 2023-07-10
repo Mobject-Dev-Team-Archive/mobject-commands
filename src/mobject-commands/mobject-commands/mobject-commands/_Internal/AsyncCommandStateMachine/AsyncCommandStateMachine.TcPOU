@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="AsyncCommandStateMachine" Id="{d31cc0cc-16b4-4b07-a6af-35ddcb7c0711}" SpecialFunc="None">
+    <Declaration><![CDATA[{attribute 'linkalways'} 
+{attribute 'no_explicit_call' := 'This FB is a CLASS and must be accessed using methods or properties'}
+{attribute 'enable_dynamic_creation'}
+FUNCTION_BLOCK AsyncCommandStateMachine IMPLEMENTS I_AsyncCommandStateControl
+VAR
+	state : (IDLE, INITIALIZING, EXECUTING, COMPLETING, COMPLETED, ABORTING, ABORTED, ERRORED);
+	_errorId : UDINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Folder Name="Private" Id="{41426bd1-a226-0803-0384-e062ce7381b2}" />
+    <Method Name="Abort" Id="{78c22115-5b85-0d50-1bd1-09ca78ea3fd1}">
+      <Declaration><![CDATA[METHOD PUBLIC Abort
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE state OF
+	IDLE : RETURN;
+	ABORTING : RETURN;
+	COMPLETED : RETURN;
+	ABORTED : RETURN;
+	ERRORED : RETURN;
+END_CASE
+
+state := ABORTING;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Error" Id="{18d6a5d8-96f4-0214-2b15-d10a997ecb87}">
+      <Declaration><![CDATA[METHOD PUBLIC Error
+VAR_INPUT
+	ErrorId : UDINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE state OF
+	IDLE : RETURN;
+	COMPLETED : RETURN;
+	ABORTED : RETURN;
+	ERRORED : RETURN;
+END_CASE
+
+_errorId := ErrorId;
+state := ERRORED;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="ErrorId" Id="{c5ec3162-ba6d-041d-3f3c-c8f5993b84e7}">
+      <Declaration><![CDATA[{attribute 'monitoring' := 'call'}
+PROPERTY PUBLIC ErrorId : UDINT]]></Declaration>
+      <Get Name="Get" Id="{c877bd70-7bda-0b3e-2ccc-7a7e50987718}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[ErrorID := _errorId;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Execute" Id="{bc66cba2-0366-0798-2fcd-65188d719db8}">
+      <Declaration><![CDATA[METHOD PUBLIC Execute
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE state OF
+	INITIALIZING : RETURN;
+	EXECUTING : RETURN;
+	COMPLETING : RETURN;
+	ABORTING : RETURN;
+END_CASE
+
+_errorId := 0;
+state := INITIALIZING;]]></ST>
+      </Implementation>
+    </Method>
+    <Property Name="IsAborted" Id="{9935f71d-980f-0975-0522-8cc4cbfb75ea}">
+      <Declaration><![CDATA[{attribute 'monitoring' := 'call'}
+PROPERTY PUBLIC IsAborted : BOOL]]></Declaration>
+      <Get Name="Get" Id="{0b2a1cf9-e737-0465-344d-50e5bbae51d3}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsAborted := state = ABORTED;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="IsAborting" Id="{04b092b0-40e8-054e-1f50-cd6f844876e9}">
+      <Declaration><![CDATA[{attribute 'monitoring' := 'call'}
+PROPERTY PUBLIC IsAborting : BOOL]]></Declaration>
+      <Get Name="Get" Id="{905ff163-f255-0bb7-1496-a0c9db2fa59a}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsAborting := state = ABORTING;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="IsCompleted" Id="{62fa8999-a6c2-09ff-3455-85d275619a26}">
+      <Declaration><![CDATA[{attribute 'monitoring' := 'call'}
+PROPERTY PUBLIC IsCompleted : BOOL]]></Declaration>
+      <Get Name="Get" Id="{050dcc6f-5274-0b30-048a-94757015eedd}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsCompleted := state = COMPLETED;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="IsCompleting" Id="{ff6612e9-4498-0e9a-1cf5-4b43e2da028d}">
+      <Declaration><![CDATA[{attribute 'monitoring' := 'call'}
+PROPERTY PUBLIC IsCompleting : BOOL]]></Declaration>
+      <Get Name="Get" Id="{759252e6-f179-0cda-3559-75be88189814}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsCompleting := state = COMPLETING;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="IsErrored" Id="{ff93ab43-ebf2-0230-3d19-f222afd8bcc2}">
+      <Declaration><![CDATA[{attribute 'monitoring' := 'call'}
+PROPERTY PUBLIC IsErrored : BOOL]]></Declaration>
+      <Get Name="Get" Id="{6bee74d6-703e-042a-1fca-320563290093}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsErrored := state = ERRORED;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="IsExecuting" Id="{36c34b42-44ed-01ea-1888-6178766ddcd4}">
+      <Declaration><![CDATA[{attribute 'monitoring' := 'call'}
+PROPERTY PUBLIC IsExecuting : BOOL]]></Declaration>
+      <Get Name="Get" Id="{ef95ac24-4c50-0c56-2905-a8c914749852}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsExecuting := state = EXECUTING;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="IsIdle" Id="{52586fe8-a9c9-0414-265f-2080ea24f1de}">
+      <Declaration><![CDATA[{attribute 'monitoring' := 'call'}
+PROPERTY PUBLIC IsIdle : BOOL]]></Declaration>
+      <Get Name="Get" Id="{8c14f0a1-91b4-00bf-2d9c-4577b31a3c5b}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsIdle:= state = IDLE;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Property Name="IsInitializing" Id="{99dd60cc-4abe-0fbc-1f74-698bcb0f7322}">
+      <Declaration><![CDATA[{attribute 'monitoring' := 'call'}
+PROPERTY PUBLIC IsInitializing : BOOL]]></Declaration>
+      <Get Name="Get" Id="{c1662816-4e65-022c-0b2a-e6d27dfe215c}">
+        <Declaration><![CDATA[VAR
+END_VAR
+]]></Declaration>
+        <Implementation>
+          <ST><![CDATA[IsInitializing := state = INITIALIZING;]]></ST>
+        </Implementation>
+      </Get>
+    </Property>
+    <Method Name="Next" Id="{d4c73f06-c16b-00f1-1b40-d28d4a8d0e71}">
+      <Declaration><![CDATA[METHOD PUBLIC Next
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[CASE state OF
+	IDLE : RETURN;
+	INITIALIZING : StateComplete_Initializing();
+	EXECUTING : StateComplete_Executing();
+	COMPLETING : StateComplete_Completing();
+	COMPLETED : RETURN;
+	ABORTING : StateComplete_Aborting();
+	ABORTED : RETURN;
+	ERRORED : RETURN;
+END_CASE]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="StateComplete_Aborting" Id="{5258c404-ec4e-0960-077c-91eb2bfaf45c}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE StateComplete_Aborting
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[state := ABORTED;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="StateComplete_Completing" Id="{46e85e9c-fd98-0aa7-32ec-c6a472347e8d}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE StateComplete_Completing
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[state := COMPLETED;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="StateComplete_Executing" Id="{11c2ac65-de78-0d43-185f-d15738abfb29}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE StateComplete_Executing
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[state := COMPLETING;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="StateComplete_Initializing" Id="{9112795b-6bf9-0d9e-0480-40f30f283991}" FolderPath="Private\">
+      <Declaration><![CDATA[METHOD PRIVATE StateComplete_Initializing
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[state := EXECUTING;]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <Itf Name="I_AsyncCommand" Id="{1bee37c0-c3a5-0b6f-13cb-01d3f3ae4d04}">
+    <Declaration><![CDATA[INTERFACE I_AsyncCommand extends I_Command
+]]></Declaration>
+    <Method Name="Abort" Id="{af0faec8-03c9-094f-32c6-8876a661ccc2}">
+      <Declaration><![CDATA[METHOD Abort
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Busy" Id="{a78b9e36-0397-00b8-39ab-db80274d7b8a}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Busy : BOOL]]></Declaration>
+      <Get Name="Get" Id="{07c82fb1-c830-0db9-020e-177357e8ca62}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Method Name="CyclicCall" Id="{33296f58-4355-0dfc-3db1-1173b9e296e6}">
+      <Declaration><![CDATA[METHOD PUBLIC CyclicCall
+VAR_INPUT
+END_VAR
+]]></Declaration>
+    </Method>
+    <Property Name="Done" Id="{0b870abb-a5f7-06bc-24ef-084de0b2b9c7}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Done : BOOL]]></Declaration>
+      <Get Name="Get" Id="{f437076f-e9a1-015b-0c19-71fe29723127}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="Error" Id="{05989871-e6f4-0629-22cf-653120562041}">
+      <Declaration><![CDATA[PROPERTY PUBLIC Error : BOOL]]></Declaration>
+      <Get Name="Get" Id="{d3ba6b25-2b2f-03ab-050c-89e678e056e1}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+    <Property Name="ErrorId" Id="{b7cd4ec5-34e3-036b-39ef-cd4663d3b579}">
+      <Declaration><![CDATA[PROPERTY PUBLIC ErrorId : UDINT]]></Declaration>
+      <Get Name="Get" Id="{37a6fa1a-e655-0de5-3905-8d5be701e7aa}">
+        <Declaration><![CDATA[]]></Declaration>
+      </Get>
+    </Property>
+  </Itf>
+</TcPlcObject>
