@@ -1,12 +1,14 @@
 <p align="center">
-  <img width="460" src="./images/logo.svg">
+  <picture>
+    <img class="top-logo" alt="mobject main logo" src='./images/logo-light.svg'>
+  </picture>
 </p>
 
 > A framework and guide for writing object oriented programs in structured text.
 
 ## The mobject-commands Library
 
-This is one of the many libraries of mobject. This library focuses on the creation and lifecycle of commands.
+This is one of the many libraries of [mobject](http://mobject.org). This library focuses on the creation and lifecycle of commands.
 
 ## What is mobject?
 

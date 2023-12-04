@@ -23,7 +23,7 @@
     <Author>mobject dev team</Author>
     <PreserveCompiledLibComments>true</PreserveCompiledLibComments>
     <CombineIds>true</CombineIds>
-    <ProjectVersion>0.0.1</ProjectVersion>
+    <ProjectVersion>0.1.0</ProjectVersion>
     <LibraryCategories>
       <LibraryCategory xmlns="">
         <Id>{1060d52a-c0ce-4c5f-a334-01a7e2e0ab1e}</Id>
@@ -74,6 +74,11 @@
     <Compile Include="_Internal\AsyncCommandStateMachine\I_AsyncCommandStateControl.TcIO">
       <SubType>Code</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <LibraryReference Include="mobject-disposable,1.0.0,mobject">
+      <Namespace>mobject_disposable</Namespace>
+    </LibraryReference>
   </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>
