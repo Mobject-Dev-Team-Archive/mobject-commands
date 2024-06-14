@@ -51,7 +51,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <LibraryReference Include="mobject-commands,0.1.0,mobject">
+    <LibraryReference Include="mobject-commands,0.2.0,mobject">
       <Namespace>mobject_commands</Namespace>
     </LibraryReference>
   </ItemGroup>

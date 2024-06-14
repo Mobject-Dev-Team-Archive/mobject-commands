@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.2.0-alpha
+
+- Updated to support mobject-disposable v1.1.1
+
 ## v0.1.0-alpha
 
 - Updated documentation to support dark mode.

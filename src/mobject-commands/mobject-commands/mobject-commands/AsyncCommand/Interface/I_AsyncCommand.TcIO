@@ -4,7 +4,7 @@
     <Declaration><![CDATA[INTERFACE I_AsyncCommand extends I_Command
 ]]></Declaration>
     <Method Name="Abort" Id="{af0faec8-03c9-094f-32c6-8876a661ccc2}">
-      <Declaration><![CDATA[METHOD Abort
+      <Declaration><![CDATA[METHOD PUBLIC Abort
 VAR_INPUT
 END_VAR
 ]]></Declaration>
